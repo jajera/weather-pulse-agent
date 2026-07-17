@@ -28,14 +28,14 @@ After apply:
 1. Confirm the **SNS email** subscription from your inbox.
 2. Set the Slack webhook (Terraform leaves a placeholder; value is ignored on later applies):
 
-```bash
-aws ssm put-parameter \
-  --name /weather-pulse/slack-webhook \
-  --type SecureString \
-  --value 'https://hooks.slack.com/services/...' \
-  --overwrite \
-  --region ap-southeast-2
-```
+    ```bash
+    aws ssm put-parameter \
+      --name /weather-pulse/slack-webhook \
+      --type SecureString \
+      --value 'https://hooks.slack.com/services/...' \
+      --overwrite \
+      --region ap-southeast-2
+    ```
 
 3. Note outputs:
 
@@ -62,7 +62,7 @@ Expect `statusCode: 200`, a `mood`, and usually a `report_url`.
 ## Verify
 
 | Check | How |
-|-------|-----|
+| ----- | --- |
 | Logs | CloudWatch log group `/aws/lambda/weather-pulse-nz` |
 | Email | SNS digest with short `…/report` link (or “unavailable” if HTML write failed) |
 | Slack | Mood-colored attachment + “View full report” |
@@ -87,7 +87,7 @@ Expect `statusCode: 200`, a `mood`, and usually a `report_url`.
 ## Common failures
 
 | Symptom | Likely cause | What to do |
-|---------|--------------|------------|
+| ------- | ------------ | ---------- |
 | Digest sounds templated / “no major change” copy | Bedrock denied or timeout | Check IAM + model access; template path is expected fallback |
 | Mood quiet but AQI looks bad on first day | Fixed in current code — redeploy if on a previous deployment | `terraform apply` then re-invoke |
 | Email/Slack say report unavailable | S3 `PutObject` for HTML failed | Check Lambda S3 IAM + bucket name env |

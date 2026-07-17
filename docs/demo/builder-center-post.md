@@ -101,14 +101,14 @@ Weather Pulse NZ is an always-on morning agent for New Zealand. Every day at **0
 
 I started from product specs in Kiro (`.kiro/specs/weather-pulse-nz/` — requirements, design, tasks) so the agent stayed a *scheduled pipeline*, not a chat UI. Infrastructure is Terraform in `ap-southeast-2`: Lambda, EventBridge Scheduler, DynamoDB, S3, SNS, SSM Parameter Store, IAM, and a Function URL.
 
-**Key decisions**
+### **Key decisions**
 
 - **Schedule over chat.** The Weekend Agent Challenge asks for autonomy. EventBridge Scheduler is the contract: same local time every morning.
 - **Mood from facts, prose from Bedrock.** Thresholds and deltas always own the mood; Claude 3 Haiku only narrates. If Bedrock fails, a template path still ships a usable briefing.
 - **Private report, short link.** Keeping the S3 bucket private and proxying HTML through `GET /report` avoids leaking long-lived pre-signed URLs in Slack/email while still giving a clean browser URL.
 - **SSM for the Slack webhook.** The webhook is a SecureString; Terraform can create a placeholder, and the real value is set once without putting secrets in git.
 
-**Challenges and how they were overcome**
+### **Challenges and how they were overcome**
 
 - **First-run deltas.** With no prior snapshot, “quiet” vs “bad AQI” could mislead. The agent treats first run / missing comparison explicitly and still surfaces absolute watchouts.
 - **Function URL abuse.** Early on, any method on the Function URL could hit the handler. A method gate returns **405** for non-GET so the public endpoint only serves report assets.
@@ -138,7 +138,7 @@ Development loop: local `pytest`, Terraform plan/apply, manual `aws lambda invok
 
 *Figure 6. Architecture — EventBridge Scheduler → Lambda in ap-southeast-2, with private S3 report via Function URL. Source: [`docs/weather-pulse-nz-architecture.drawio`](https://github.com/jajera/weather-pulse-agent/blob/main/docs/weather-pulse-nz-architecture.drawio).*
 
-**Architecture sketch (text)**
+### **Architecture sketch (text)**
 
 ```text
 EventBridge Scheduler (06:30 NZ)

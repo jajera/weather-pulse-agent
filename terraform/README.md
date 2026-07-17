@@ -58,11 +58,13 @@ Destroy is safe for filled resources: the S3 bucket uses `force_destroy = true` 
 
 The bucket stays private. Slack/email use a **short Function URL** that **serves** the HTML report (no browser redirect to a long S3 signature URL).
 
-**Link validity**
+### Link validity
+
 - Short link (`…lambda-url…/report`): stays usable while the stack is deployed; Lambda reads the private S3 object with IAM
 - Pre-signed S3 URLs are only a fallback if the Function URL base is missing from SSM
 
-**Brand assets** (favicon / Open Graph) are served from the same Function URL:
+### Brand assets (favicon / Open Graph) are served from the same Function URL
+
 - `…/favicon.svg`, `…/favicon.png`
 - `…/og.jpg` (1200×630 social preview)
 
