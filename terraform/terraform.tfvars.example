@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars and fill in real values:
+#   cp terraform.tfvars.example terraform.tfvars
+
+aws_region         = "ap-southeast-2"
+project_name       = "weather-pulse"
+environment        = "prod"
+email_subscription = "you@example.com"
+s3_bucket_name     = "weather-pulse-reports-YOURUNIQUE"

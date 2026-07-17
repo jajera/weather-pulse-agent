@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "charliermarsh.ruff",
+    "hashicorp.terraform",
+    "amazonwebservices.aws-toolkit-vscode",
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml",
+    "davidanson.vscode-markdownlint"
+  ]
+}
